@@ -1,9 +1,14 @@
-const { User } = require('../models/user.model');
+const { User } = require('../models/');
 const md5 = require('md5');
 
 const getAllUsers = async () => {
     const allUsers = await User.findAll();
     return allUsers;
+}
+
+const getUserByEmail = async (email) => {
+    const user = await User.findOne({ where: { email } });
+    return user;
 }
 
 const getUserById = async (id) => {
@@ -26,5 +31,6 @@ module.exports = {
     getAllUsers,
     getUserById,
     createUser,
-    loginUser
+    loginUser,
+    getUserByEmail
 };

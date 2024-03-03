@@ -11,7 +11,7 @@ const orderRouter = require('./routes/order.route'); */
 
 app.use(express.json());
 app.use(cors());
-app.use('/users', userRouter);
+app.use('/user', userRouter);
 /* app.use('/products', productRouter);
 app.use('/orders', orderRouter);
  */

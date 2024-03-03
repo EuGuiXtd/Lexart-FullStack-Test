@@ -10,9 +10,9 @@ const validateUserRegister = require('../middlewares/userValidations/validateUse
 
 const userController = require('../controllers/user.controller');
 
-router.post('/user/register', validateUserRegister,validateUserNotExists, userController.createUser);
-router.post('/user/login', validateUserLogin, userController.loginUser);
-router.get('/user', userController.getAllUsers);
-router.get('/user/:id', validateUserExists, userController.getUserById);
+router.post('/register', validateUserRegister,validateUserNotExists, userController.createUser);
+router.post('/login',validateUserLogin.validateUserEmail,validateUserLogin.validateUserPassword, userController.loginUser);
+router.get('/', userController.getAllUsers);
+router.get('/:id', validateUserExists, userController.getUserById);
 
 module.exports = router;

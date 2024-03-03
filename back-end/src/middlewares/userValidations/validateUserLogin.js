@@ -1,22 +1,29 @@
 const md5 = require('md5');
-const { User } = require('../../models/user.model');
+const { User } = require('../../models/');
+const userService = require('../../services/user.service');
 
-const validateUserLogin = async (req, res, next) => {
-    const { email, password } = req.body;
+const validateUserPassword = async (req, res, next) => {
+    const { password } = req.body;
     const hashedPassword = md5(password);
 
     const verifyPassword = await User.findOne({ where: { password: hashedPassword } });
+    
     if (!verifyPassword) {
         return res.status(401).json({ message: 'Incorrect password' });
     }
-    const verifyEmail = User.findOne({ where: { email } });
-      if (!verifyEmail) {
-          return res.status(401).json({ message: 'Incorrect email' });
-      }
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Invalid fields' });
+    next();
+  }
+
+const validateUserEmail = async (req, res, next) => {
+    const { email } = req.body;
+    const user = await userService.getUserByEmail(email);
+    if (!user) {
+        return res.status(401).json({ message: 'Incorrect email' });
     }
     next();
   }
   
-  module.exports = validateUserLogin;
+module.exports = {
+    validateUserPassword,
+    validateUserEmail
+  };
