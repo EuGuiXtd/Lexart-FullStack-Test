@@ -13,8 +13,8 @@ const validateUserPassword = async (req, res, next) => {
     }
     next();
   }
-
-const validateUserEmail = async (req, res, next) => {
+  
+  const validateUserEmail = async (req, res, next) => {
     const { email } = req.body;
     const user = await userService.getUserByEmail(email);
     if (!user) {
@@ -22,7 +22,6 @@ const validateUserEmail = async (req, res, next) => {
     }
     next();
   }
-  
 module.exports = {
     validateUserPassword,
     validateUserEmail
